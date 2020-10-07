@@ -9,7 +9,16 @@ Boilerplate projekta je kreiran naredbom `dotnet new webapi`
 Model je klasa (`Command.cs`) koja opisuju strukturu podataka - dakle value object.
 
 ## Repository
-Reppository je spremljen u direktoriju `Data` i definira samo API putem kojeg je moguće komunicirati sa aplikacijom.
+Repository je middleware koji apstrahira komunikaciju s bazom, odnosno definira API putem kojeg controller komunicira sa bazom podataka.
+
+Repo je smješten u `Data` direktoriju, u kojem se nalazi interface, kao i konkretna implementacija.
+
+Sadrži jedan interface koji definira API koji controller koristi, te sadrži implementaciju tog interface-a.
+Controller do repozitorija dolazi putem dependency injection-a.
+
+Korištenje interface-a predstavlja weak coupling koji omogućuje zamjenu implementacije bez potrebe da se mijenja controller.
+
+Ovo može doći do izražaja u slučaju ako želimo podržati spajanje na više različitih baza podataka, pri čemu će svako biti implementirano u drugoj repository klasi.
 
 ## Controller
 Kontrolere *aktiviramo* tako da u `Startup` pozovemo `MapControllers` - to će na router nakačiti kontrolere koji su dekorirani sa `Route` atributom.
