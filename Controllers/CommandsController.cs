@@ -12,11 +12,17 @@ namespace dotnet_core_mvc_rest_api.Controllers {
     [ApiController]
     public class CommandsController: ControllerBase
     {
-        private readonly MockCommanderRepo _repository = new MockCommanderRepo();
+        private readonly ICommanderRepo commanderRepo;
+
+        public CommandsController(ICommanderRepo commanderRepo)
+        {
+            this.commanderRepo = commanderRepo;
+        }
+
         // route = GET /api/commands
         [HttpGet]
         public ActionResult<IEnumerable<Command>> GetAllCommands() {
-            var commandItems = _repository.GetAllCommands();
+            var commandItems = commanderRepo.GetAllCommands();
 
             // `Ok` will return HTTP response 200
             return Ok(commandItems);
@@ -25,7 +31,7 @@ namespace dotnet_core_mvc_rest_api.Controllers {
         // route = GET api/commands/{id}
         [HttpGet("{id}")]
         public ActionResult<Command> GetCommandById(int id) {
-            var commandItem = _repository.GetCommandById(id);
+            var commandItem = commanderRepo.GetCommandById(id);
 
             return Ok(commandItem);
         }

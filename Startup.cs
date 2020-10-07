@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_core_mvc_rest_api.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,8 @@ namespace dotnet_core_mvc_rest_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            // a new instance of `MockCommanderRepo` will be created for each session
+            services.AddScoped<ICommanderRepo, MockCommanderRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
