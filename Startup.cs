@@ -34,7 +34,7 @@ namespace dotnet_core_mvc_rest_api
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
