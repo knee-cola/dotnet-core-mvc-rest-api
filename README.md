@@ -35,3 +35,7 @@ Metode koje želimo pozivati putem REST-a dekoriramo sa:
 * `HttpPost` - funkcija će biti pozvana samo na GET request
 
 Dekoratoru možemo proslijediti sub-url na koji će metoda biti pozvana, pri čemu URl može biti parametriziran (npr `HttpGet("{id}")`).
+
+# ToDo
+* pogledati ideo do kraja (sada sam na 56. minuti)
+* proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`
