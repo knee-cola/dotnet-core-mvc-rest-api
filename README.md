@@ -48,7 +48,7 @@ Admin credentials su:
 
  Kreiran je login putem kojeg će se korisnik spajati:
 * login = CommanderAPI
-* passw = tM6vPK4dBux5rqgx
+* pass = tM6vPK4dBux5rqgx
 
 
 # ToDo
