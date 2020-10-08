@@ -36,6 +36,20 @@ Metode koje želimo pozivati putem REST-a dekoriramo sa:
 
 Dekoratoru možemo proslijediti sub-url na koji će metoda biti pozvana, pri čemu URl može biti parametriziran (npr `HttpGet("{id}")`).
 
+# Database
+Instaliran je MS SQL Server (Docker Container). Docker datoteke su smještene u direktoriju `ms-sql-server`.
+
+Admin credentials su:
+* login = sa
+* pass = cveZ8MzjH5AeYPVe
+
+ Kreiran je login putem kojeg će se korisnik spajati:
+* login = CommanderAPI
+* passw = tM6vPK4dBux5rqgx
+
+
 # ToDo
 * pogledati ideo do kraja (sada sam na 56. minuti)
 * proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`
+
+
