@@ -70,7 +70,9 @@ The command did this by looking at `Startup.cs` where it finds the following:
 The generated migrations can be removed via `dotnet ef migrations remove`
 
 # ToDo
-* pogledati ideo do kraja (sada sam na 56. minuti)
+* pogledati ideo do kraja  sada sam na 1:32
+    * napravljene su migracije, no nismo s njima sretni zato jer su polja označena da smiju biti null
+    * ono što slijedi je modifikacija `Command.cs` kako bi to ispravili
 * proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`
 
 
