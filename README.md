@@ -36,7 +36,10 @@ Metode koje želimo pozivati putem REST-a dekoriramo sa:
 
 Dekoratoru možemo proslijediti sub-url na koji će metoda biti pozvana, pri čemu URl može biti parametriziran (npr `HttpGet("{id}")`).
 
-# Database
+## Dotnet EF
+Za ovaj projekt je potrebno instalirati Entety Framework Core CLI Tools putem naredbe: `dotnet tool install --global dotnet-ef`.
+
+## Database
 Instaliran je MS SQL Server (Docker Container). Docker datoteke su smještene u direktoriju `ms-sql-server`.
 
 Admin credentials su:
