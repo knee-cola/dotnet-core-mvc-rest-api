@@ -13,6 +13,6 @@ namespace dotnet_core_mvc_rest_api.Data
 
         // representation of command model in our database -> we use DbSet
         // > we want to represent our Command object to our database as a DbSet and it is going to be called "Commands"
-        public DbSet<Command> Commandss { get; set; }
+        public DbSet<Command> Commands { get; set; }
     }
 }

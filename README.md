@@ -50,6 +50,24 @@ Admin credentials su:
 * login = CommanderAPI
 * pass = tM6vPK4dBux5rqgx
 
+## Concepts: Migrations
+List of instructions which tells our database how to create database schema which mirrors app's internal representation of data.
+
+In this example it will look at CommanderContext and find `DbSet` of type `Command` called `Commands`.
+Migration will replicate that design to our SQL server. If the database doesn't exist it will create one.
+
+Migration is started via cli: `dotnet ef migrations add InitialMigration` ("InitialMigration" is label we have given to this run - it can be anything)
+
+The command will only create a new directory `Migrations`, which contains a C# program which can be run to create structures on SQL Server (database, tables, indexes).
+
+If we have a look at the c# files we will see that the structure (tables, columns) it creates match the structure in our `Command.cs` model.
+
+The command did this by looking at `Startup.cs` where it finds the following:
+* registration of `DbContext` of type `CommanderContext`
+* `CommanderContext` defines `DbSet` of type `Command` -> this will be converted into a DB table
+* `Command` has public properties which will be mapped to table columns
+
+The generated migrations can be removed via `dotnet ef migrations remove`
 
 # ToDo
 * pogledati ideo do kraja (sada sam na 56. minuti)
