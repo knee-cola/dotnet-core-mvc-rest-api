@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,6 +27,10 @@ namespace dotnet_core_mvc_rest_api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            // injecting Database Context which will be used to access SQL Server database
+            services.AddDbContext<CommanderContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
+
             // a new instance of `MockCommanderRepo` will be created for each session
             services.AddScoped<ICommanderRepo, MockCommanderRepo>();
         }
