@@ -66,6 +66,14 @@ The command did this by looking at `Startup.cs` where it finds the following:
 
 The generated migrations can be removed via `dotnet ef migrations remove`
 
+#### Applying migrations to the database
+To apply previously created migrations to a database we need to run `dotnet ef database update`.
+
+For this project a database will be created with the name *"CommanderDB"*, which corresponds to the *"Initial Catalog"* from the connection string.
+Inside it one table will be created names *"Commands"* which corresponds to `DbSet` name from `CommanderContext.cs`.
+
+In addition to tables corresponding to the Model Entety Framework also creates a `[__EFMigrationsHistory]` table which will contain all the previously applied migations.
+
 ## Database
 For this project to run we need an MS SQL Server.
 
