@@ -3,6 +3,12 @@ This is a demo project created while following the [.NET Core 3.1 MVC REST API -
 
 Boilerplate was created by running `dotnet new webapi`
 
+# Installed Nuget packages
+* `Microsoft.EntityFrameworkCore` - Entety Framework
+* `Microsoft.EntityFrameworkCore.Design` - design-time components for Entity Framework Core tools
+* `Microsoft.EntityFrameworkCore.SqlServer` - Entety Framework provider form MS SQL Server
+* `AutoMapper.Extensions.Microsoft.DependencyInjection` - maps commands objects to DTOs and DTOs to commands
+
 # Notes
 
 ## Controller
@@ -97,7 +103,9 @@ This has multipke downsides:
 
 These problem is solved by de-coupling implementation from data contract via *Data Transfer Objects* (DTO).
 
-*Data Transfer Object* is a representation od model.
+*Data Transfer Object* is a representation of model.
+
+In this project we're using `AutoMapper`, which does the mapping heavy lifting.
 
 ## Database
 For this project to run we need an MS SQL Server.

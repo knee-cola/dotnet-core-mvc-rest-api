@@ -1,6 +1,8 @@
 
 using System.Collections.Generic;
+using AutoMapper;
 using dotnet_core_mvc_rest_api.Data;
+using dotnet_core_mvc_rest_api.Dtos;
 using dotnet_core_mvc_rest_api.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,10 +15,12 @@ namespace dotnet_core_mvc_rest_api.Controllers {
     public class CommandsController: ControllerBase
     {
         private readonly ICommanderRepo commanderRepo;
+        private readonly IMapper mapper;
 
-        public CommandsController(ICommanderRepo commanderRepo)
+        public CommandsController(ICommanderRepo commanderRepo, IMapper mapper)
         {
             this.commanderRepo = commanderRepo;
+            this.mapper = mapper;
         }
 
         // route = GET /api/commands
@@ -30,11 +34,14 @@ namespace dotnet_core_mvc_rest_api.Controllers {
 
         // route = GET api/commands/{id}
         [HttpGet("{id}")]
-        public ActionResult<Command> GetCommandById(int id) {
+        public ActionResult<CommandReadDto> GetCommandById(int id) {
             var commandItem = commanderRepo.GetCommandById(id);
-
-            return Ok(commandItem);
+            
+            if(commandItem != null)
+                // mapping from `Command` to `CommandReadDto`
+                return Ok(mapper.Map<CommandReadDto>(commandItem));
+            
+            return NotFound();
         }
-
     }
 }
