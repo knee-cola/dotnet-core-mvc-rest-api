@@ -32,7 +32,12 @@ Via annotation a method can be bound to a sub-url annotation, which can also con
 ## Model
 Model is set of classed (i.e. `Command.cs`) which (a) describes structure of a data element and (b) is used to store data (value object).
 
-Model properties can be annotated which will be used by *migrations* when creating database structures. Here are a few examples:
+### Model annotationsa
+Model properties can be annotated which will be used:
+* by *migrations* when creating database structures
+* by de-serializer when **validating data** received form the client
+
+Here are a few examples:
 * `Key` = property is a unique key
 * `Required` = value can not be null
 * `MaxLength` = max length of a field
@@ -106,6 +111,14 @@ These problem is solved by de-coupling implementation from data contract via *Da
 *Data Transfer Object* is a representation of model.
 
 In this project we're using `AutoMapper`, which does the mapping heavy lifting.
+
+### DTO Annotations
+Like model the Data Transfer Object properties can also be annotated.
+
+Here the annotations are used only by the de-serializer to validate the data received from the client (i.e. in CREATE operation).
+
+If the validation fails the server will return a *400 Bad Request* HTTP response.
+
 
 ## Database
 For this project to run we need an MS SQL Server.
