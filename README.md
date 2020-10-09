@@ -1,56 +1,53 @@
-# Što je ovo?
-Projekt nastao slijeđenjem tutoriala [.NET Core 3.1 MVC REST API - Full Course](https://www.youtube.com/watch?v=fmvcAzHpsk8)
+# What's this?
+This is a demo project created while following the [.NET Core 3.1 MVC REST API - Full Course](https://www.youtube.com/watch?v=fmvcAzHpsk8).
 
-Boilerplate projekta je kreiran naredbom `dotnet new webapi`
+Boilerplate was created by running `dotnet new webapi`
 
-# Bilješke
-
-## Model
-Model je klasa (`Command.cs`) koja opisuju strukturu podataka - dakle value object.
-
-## Repository
-Repository je middleware koji apstrahira komunikaciju s bazom, odnosno definira API putem kojeg controller komunicira sa bazom podataka.
-
-Repo je smješten u `Data` direktoriju, u kojem se nalazi interface, kao i konkretna implementacija.
-
-Sadrži jedan interface koji definira API koji controller koristi, te sadrži implementaciju tog interface-a.
-Controller do repozitorija dolazi putem dependency injection-a.
-
-Korištenje interface-a predstavlja weak coupling koji omogućuje zamjenu implementacije bez potrebe da se mijenja controller.
-
-Ovo može doći do izražaja u slučaju ako želimo podržati spajanje na više različitih baza podataka, pri čemu će svako biti implementirano u drugoj repository klasi.
+# Notes
 
 ## Controller
-Kontrolere *aktiviramo* tako da u `Startup` pozovemo `MapControllers` - to će na router nakačiti kontrolere koji su dekorirani sa `Route` atributom.
+Controller handlers client requests, executes business logica and prepares a response for the client.
 
-Kontroler će biti automatski instancirani pri čemu će rađen dependency injection.
+Controllers are hooked up in the `Startup.cs` - in our example by calling `MapControllers`. Based on controller's `Route` annotation a new route will be created and assigned to that controller.
 
-### Dekoriranje controllera
-Controller klasu dekoriramo sa:
-* `Route` - omogućuje nam da zadamo URL na kojem će controller *slušati*
-* `ApiController` - daje neke out-of-the-box funkcionalnosti
+A controllers is instantiated automatically when the corresponding route gets triggered.
 
-Metode koje želimo pozivati putem REST-a dekoriramo sa:
-* `HttpGet` - funkcija će biti pozvana samo na GET request
-* `HttpPost` - funkcija će biti pozvana samo na GET request
+### Controller annotations
+Controller can to be decorated with:
+* `ApiController` - gives us some out-of-the-box functionallity
+* `Route` - binds controller to a certain URL - the controller will be activated when the URL gets triggered
 
-Dekoratoru možemo proslijediti sub-url na koji će metoda biti pozvana, pri čemu URl može biti parametriziran (npr `HttpGet("{id}")`).
+Controller methods which are exposed to the internet are also annotated:
+* `HttpGet` - method will be called only for GET request
+* `HttpPost` - method will be called only for POST request
+
+Via annotation a method can be bound to a sub-url annotation, which can also contain parameters (npr `HttpGet("{id}")`) which will be passed to method as a parameter
+
+## Model
+Model is set of classed (i.e. `Command.cs`) which (a) describes structure of a data element and (b) is used to store data (value object).
+
+Model properties can be annotated which will be used by *migrations* when creating database structures. Here are a few examples:
+* `Key` = property is a unique key
+* `Required` = value can not be null
+* `MaxLength` = max length of a field
+
+## Repository
+
+Repository is a middleware which defines API through which controllers can communicate with the database.
+It hides the implementation details of the database access logic.
+
+In this project repository is stored in the `Data` directory. It consists of:
+* interface definition - this defines the API
+* interface implementation specific to a database
+
+Repository registered as a service in `Startup.cs` and gets injected into controller as a dependency.
+
+By an interface to define API the implementation is de-coupled from the Controller, which then enables the implementation to be easily swapped.
 
 ## Dotnet EF
-Za ovaj projekt je potrebno instalirati Entety Framework Core CLI Tools putem naredbe: `dotnet tool install --global dotnet-ef`.
+In this project we will be using *Entety Framework Core CLI Tools*, which can be installed via `dotnet tool install --global dotnet-ef`.
 
-## Database
-Instaliran je MS SQL Server (Docker Container). Docker datoteke su smještene u direktoriju `ms-sql-server`.
-
-Admin credentials su:
-* login = sa
-* pass = cveZ8MzjH5AeYPVe
-
- Kreiran je login putem kojeg će se korisnik spajati:
-* login = CommanderAPI
-* pass = tM6vPK4dBux5rqgx
-
-## Concepts: Migrations
+### Concepts: Migrations
 List of instructions which tells our database how to create database schema which mirrors app's internal representation of data.
 
 In this example it will look at CommanderContext and find `DbSet` of type `Command` called `Commands`.
@@ -69,10 +66,21 @@ The command did this by looking at `Startup.cs` where it finds the following:
 
 The generated migrations can be removed via `dotnet ef migrations remove`
 
+## Database
+For this project to run we need an MS SQL Server.
+
+To simplify things a dockerized version of the server has been added. Have a look at the `ms-sql-server` directory.
+
+Admin credentials are:
+* login = sa
+* pass = cveZ8MzjH5AeYPVe
+
+A SQL login was created with the following credentials:
+* login = CommanderAPI
+* pass = tM6vPK4dBux5rqgx
+
+
 # ToDo
-* pogledati ideo do kraja  sada sam na 1:32
-    * napravljene su migracije, no nismo s njima sretni zato jer su polja označena da smiju biti null
-    * ono što slijedi je modifikacija `Command.cs` kako bi to ispravili
 * proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`
 
 
