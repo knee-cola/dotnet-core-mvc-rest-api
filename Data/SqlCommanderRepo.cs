@@ -22,6 +22,22 @@ namespace dotnet_core_mvc_rest_api.Data
         {
             return context.Commands.FirstOrDefault(p => p.Id == id);
         }
+
+        void ICommanderRepo.CreateCommand(Command cmd)
+        {
+            if(cmd == null) {
+                throw new System.ArgumentNullException(nameof(cmd));
+            }
+
+            context.Add<Command>(cmd);
+
+        }
+
+        bool ICommanderRepo.SaveChanges()
+        {
+            // submit all changes made to model to the database
+            return(context.SaveChanges() >= 0 );
+        }
     }
 
 }

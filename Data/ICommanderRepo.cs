@@ -5,9 +5,10 @@ namespace dotnet_core_mvc_rest_api.Data
 {
     public interface ICommanderRepo
     {
+        bool SaveChanges();
         IEnumerable<Command> GetAllCommands();
         Command GetCommandById(int id);
-        
+        void CreateCommand(Command cmd);
     }
     
 }
