@@ -7,7 +7,10 @@ namespace dotnet_core_mvc_rest_api.Profiles
     {
         public CommandProfile()
         {
+            // mapping for "read" operation
             CreateMap<Command, CommandReadDto>();
+            // mapping for "write" operation
+            CreateMap<CommandCreateDto, Command>();
         }
     }    
 }

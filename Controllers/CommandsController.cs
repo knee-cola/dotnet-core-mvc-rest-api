@@ -43,5 +43,14 @@ namespace dotnet_core_mvc_rest_api.Controllers {
             
             return NotFound();
         }
+
+        // route = POST api/commands/
+        [HttpPost()]
+        public ActionResult<Command> CreateCommand(CommandCreateDto cmdDto) {
+            var cmd = mapper.Map<Command>(cmdDto);
+            commanderRepo.CreateCommand(cmd);
+            commanderRepo.SaveChanges(); // save changes to database
+            return Ok(cmd);
+        }
     }
 }
