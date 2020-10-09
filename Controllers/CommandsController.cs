@@ -33,7 +33,7 @@ namespace dotnet_core_mvc_rest_api.Controllers {
         }
 
         // route = GET api/commands/{id}
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetCommandById")]
         public ActionResult<CommandReadDto> GetCommandById(int id) {
             var commandItem = commanderRepo.GetCommandById(id);
             
@@ -47,11 +47,21 @@ namespace dotnet_core_mvc_rest_api.Controllers {
         // route = POST api/commands/
         [HttpPost()]
         public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto cmdDto) {
-            var cmd = mapper.Map<Command>(cmdDto);
-            commanderRepo.CreateCommand(cmd);
-            commanderRepo.SaveChanges(); // save changes to database
 
-            return(mapper.Map<CommandReadDto>(cmd));
+            // converting DTO to model
+            var cmd = mapper.Map<Command>(cmdDto);
+
+            // creating new entry in-memory
+            commanderRepo.CreateCommand(cmd);
+
+            // save changes to database
+            commanderRepo.SaveChanges();
+
+            var cmdReadDto = mapper.Map<CommandReadDto>(cmd);
+
+            // this will return 201=Created HTTP response with
+            // a HTTP header `Location` containing URL from which the crated record can be retrived
+            return CreatedAtRoute(nameof(GetCommandById), new { Id = cmdReadDto.Id }, cmdReadDto);
         }
     }
 }
