@@ -11,6 +11,7 @@ namespace dotnet_core_mvc_rest_api.Profiles
             CreateMap<Command, CommandReadDto>();
             // mapping for "write" operation
             CreateMap<CommandCreateDto, Command>();
+            CreateMap<CommandUpdateDto, Command>();
         }
     }    
 }

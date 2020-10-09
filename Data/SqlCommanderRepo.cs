@@ -18,9 +18,9 @@ namespace dotnet_core_mvc_rest_api.Data
             return context.Commands.ToList();
         }
 
-        public Command GetCommandById(int id)
+        public Command GetCommandById(int Id)
         {
-            return context.Commands.FirstOrDefault(p => p.Id == id);
+            return context.Commands.FirstOrDefault(p => p.Id == Id);
         }
 
         void ICommanderRepo.CreateCommand(Command cmd)
@@ -37,6 +37,11 @@ namespace dotnet_core_mvc_rest_api.Data
         {
             // submit all changes made to model to the database
             return(context.SaveChanges() >= 0 );
+        }
+
+        public void UpdateCommand(Command cmd)
+        {
+            // no implementation needed
         }
     }
 

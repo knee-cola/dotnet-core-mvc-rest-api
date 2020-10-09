@@ -7,8 +7,9 @@ namespace dotnet_core_mvc_rest_api.Data
     {
         bool SaveChanges();
         IEnumerable<Command> GetAllCommands();
-        Command GetCommandById(int id);
+        Command GetCommandById(int Id);
         void CreateCommand(Command cmd);
+        void UpdateCommand(Command cmd);
     }
     
 }

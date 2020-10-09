@@ -63,5 +63,31 @@ namespace dotnet_core_mvc_rest_api.Controllers {
             // a HTTP header `Location` containing URL from which the crated record can be retrived
             return CreatedAtRoute(nameof(GetCommandById), new { Id = cmdReadDto.Id }, cmdReadDto);
         }
+
+        // route = PUT api/commands/{id}
+        [HttpPut("{id}")]
+        public ActionResult PutCommand(int id, CommandUpdateDto cmdDto) {
+
+            var cmdFromRepo = commanderRepo.GetCommandById(id);
+
+            if(cmdFromRepo == null) {
+                return NotFound(); // 404 Not Found
+            }
+
+            // mapping DTO directly onto `command` fetched from the database
+            // > this will update all the properties with values coming from client
+            mapper.Map(cmdDto, cmdFromRepo);
+
+            // the following method will not do anything since it's empty - it does nothing
+            // -> that is OK since the previous call to (Map) method has already updated
+            //    the EF data. The `cmdFromRepo` is just a reference to an object stored by EF,
+            //    meaning that changing it's properties results in EF to be also updated
+            commanderRepo.UpdateCommand(cmdFromRepo);
+
+            // persist changes to database
+            commanderRepo.SaveChanges();
+
+            return NoContent(); // 204 HTTP code
+        }
     }
 }

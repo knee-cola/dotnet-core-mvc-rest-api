@@ -133,6 +133,13 @@ A SQL login was created with the following credentials:
 * login = CommanderAPI
 * pass = tM6vPK4dBux5rqgx
 
+# HTTP Request types
+`PUT` and `PATCH` both modify a record.
+The difference is that `PUT` requires all the properties of an object to be shipped each time, despite the fact that some might have not changes.
+Patch on the other hand is more flexible, meaning that only the modified fields need to be changed.
+
+**Note:** the `id` property is not part of the request body - it's shipped as part of URL (i.e. PUT `/api/commands/1`).
+
 # ToDo
 * proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`
 
