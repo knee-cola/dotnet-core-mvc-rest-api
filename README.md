@@ -60,25 +60,24 @@ Here's what each of the object does:
 * `Repository` - implements the API which Controller can call + gets the data via EF
 * `Controller` - presents the data to the public
 
-### EF Tools 
-In this project we will be using *Entety Framework Core CLI Tools*, which can be installed via `dotnet tool install --global dotnet-ef`.
+### EF Tools
+EF tools help us create a database structure which matches the one defined by `DbContext`.
+
+This toolcan be installed via `dotnet tool install --global dotnet-ef`.
 
 ### Concepts: Migrations
-List of instructions which tells our database how to create database schema which mirrors app's internal representation of data.
+*Migrations* is a set of C# classes generated which create a database matching the structure defined in `DbContext`.
 
-In this example it will look at CommanderContext and find `DbSet` of type `Command` called `Commands`.
-Migration will replicate that design to our SQL server. If the database doesn't exist it will create one.
-
-Migration is started via cli: `dotnet ef migrations add InitialMigration` ("InitialMigration" is label we have given to this run - it can be anything)
-
-The command will only create a new directory `Migrations`, which contains a C# program which can be run to create structures on SQL Server (database, tables, indexes).
-
-If we have a look at the c# files we will see that the structure (tables, columns) it creates match the structure in our `Command.cs` model.
-
-The command did this by looking at `Startup.cs` where it finds the following:
+The tool does this by looging first at `Startup.cs` where it finds the following:
 * registration of `DbContext` of type `CommanderContext`
-* `CommanderContext` defines `DbSet` of type `Command` -> this will be converted into a DB table
+* `CommanderContext` defines `DbSet` of type `Command` -> this will be mapped to a DB table
 * `Command` has public properties which will be mapped to table columns
+
+The generated migration classes will be placed inside `Migrations` directory.
+
+Tool is started via CLI: `dotnet ef migrations add InitialMigration` (*"InitialMigration"* is label we have given to this run - it can be anything)
+
+If we have a look at the C# files we will see that it creates a DB structure (tables, columns) which matches the structure in our `Command.cs` model.
 
 The generated migrations can be removed via `dotnet ef migrations remove`
 
