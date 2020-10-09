@@ -46,11 +46,12 @@ namespace dotnet_core_mvc_rest_api.Controllers {
 
         // route = POST api/commands/
         [HttpPost()]
-        public ActionResult<Command> CreateCommand(CommandCreateDto cmdDto) {
+        public ActionResult<CommandReadDto> CreateCommand(CommandCreateDto cmdDto) {
             var cmd = mapper.Map<Command>(cmdDto);
             commanderRepo.CreateCommand(cmd);
             commanderRepo.SaveChanges(); // save changes to database
-            return Ok(cmd);
+
+            return(mapper.Map<CommandReadDto>(cmd));
         }
     }
 }
