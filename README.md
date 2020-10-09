@@ -32,7 +32,6 @@ Model properties can be annotated which will be used by *migrations* when creati
 * `MaxLength` = max length of a field
 
 ## Repository
-
 Repository is a middleware which defines API through which controllers can communicate with the database.
 It hides the implementation details of the database access logic.
 
@@ -44,7 +43,7 @@ Repository registered as a service in `Startup.cs` and gets injected into contro
 
 By an interface to define API the implementation is de-coupled from the Controller, which then enables the implementation to be easily swapped.
 
-## Dotnet Entety Framework
+## Entety Framework
 Entery Framework uses the following flow of data:
 ```
     SQL Database -> EF -> DbContext -> Repository -> Controller
@@ -88,6 +87,17 @@ For this project a database will be created with the name *"CommanderDB"*, which
 Inside it one table will be created names *"Commands"* which corresponds to `DbSet` name from `CommanderContext.cs`.
 
 In addition to tables corresponding to the Model Entety Framework also creates a `[__EFMigrationsHistory]` table which will contain all the previously applied migations.
+
+## Entety Framework Problem & Data Transfer Object
+One problem with Entety Framework is that the whole internal database structure gets directly exposed to the public via controllers.
+
+This has multipke downsides:
+* not all feelds need or should be sent do clients
+* data contract is tightly coupled to our internal implementation - each change in implementation breaks the data contract
+
+These problem is solved by de-coupling implementation from data contract via *Data Transfer Objects* (DTO).
+
+*Data Transfer Object* is a representation od model.
 
 ## Database
 For this project to run we need an MS SQL Server.
