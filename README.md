@@ -44,7 +44,23 @@ Repository registered as a service in `Startup.cs` and gets injected into contro
 
 By an interface to define API the implementation is de-coupled from the Controller, which then enables the implementation to be easily swapped.
 
-## Dotnet EF
+## Dotnet Entety Framework
+Entery Framework uses the following flow of data:
+```
+    SQL Database -> EF -> DbContext -> Repository -> Controller
+```
+* `Controller` - initiates data fetch by calling a Repository method
+* `Repository` - fetches the data by calling a method of a `DbSet` object in `DbContext`
+* `DbContext` - it does nothing - it's just a C# representation of DB data structure
+* `EF` - entety framework talks to the database and returns the requested data
+
+Here's what each of the object does:
+* `Entety Framework` is basically a bridge which maps database structures to .Net objects
+* `DbContext` defines the structure of the data, which matches the structure in DB
+* `Repository` - implements the API which Controller can call + gets the data via EF
+* `Controller` - presents the data to the public
+
+### EF Tools 
 In this project we will be using *Entety Framework Core CLI Tools*, which can be installed via `dotnet tool install --global dotnet-ef`.
 
 ### Concepts: Migrations
@@ -86,7 +102,6 @@ Admin credentials are:
 A SQL login was created with the following credentials:
 * login = CommanderAPI
 * pass = tM6vPK4dBux5rqgx
-
 
 # ToDo
 * proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`

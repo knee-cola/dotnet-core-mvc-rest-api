@@ -32,7 +32,7 @@ namespace dotnet_core_mvc_rest_api
             services.AddDbContext<CommanderContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
 
             // a new instance of `MockCommanderRepo` will be created for each session
-            services.AddScoped<ICommanderRepo, MockCommanderRepo>();
+            services.AddScoped<ICommanderRepo, SqlCommanderRepo>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
