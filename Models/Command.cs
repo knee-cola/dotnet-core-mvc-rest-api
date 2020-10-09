@@ -10,6 +10,7 @@ namespace dotnet_core_mvc_rest_api.Models {
         [Required]
         [MaxLength(250)]
         public string HowTo { get; set; }
+
         [Required]
         public string Line { get; set; }
         
