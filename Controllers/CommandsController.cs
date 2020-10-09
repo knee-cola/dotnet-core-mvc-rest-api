@@ -25,11 +25,11 @@ namespace dotnet_core_mvc_rest_api.Controllers {
 
         // route = GET /api/commands
         [HttpGet]
-        public ActionResult<IEnumerable<Command>> GetAllCommands() {
+        public ActionResult<IEnumerable<CommandReadDto>> GetAllCommands() {
             var commandItems = commanderRepo.GetAllCommands();
 
             // `Ok` will return HTTP response 200
-            return Ok(commandItems);
+            return Ok(mapper.Map<IEnumerable<CommandReadDto>>(commandItems));
         }
 
         // route = GET api/commands/{id}
