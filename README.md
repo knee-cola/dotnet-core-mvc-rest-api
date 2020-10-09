@@ -140,7 +140,17 @@ Patch on the other hand is more flexible, meaning that only the modified fields 
 
 **Note:** the `id` property is not part of the request body - it's shipped as part of URL (i.e. PUT `/api/commands/1`).
 
+## PATCH
+Request body of a PATCH request is formated according to a special format / protocol: it contains one or multiple JSON blocks of the following format:
+```json
+{
+    "op": "replace",
+    "path": "/howto",
+    "value": "new howto value"
+}
+```
+Each block defines a modification one property of an object. Object is identified by ID which is passed in URL querystring.
+
 # ToDo
-* proučiti Asp.Net middleware - općenito, ali i konkretno: `UseRouting`, `UseEndpoints`
-
-
+* continue watching the video from 3:03:47
+* read the documentation about Asp.Net middleware, with focus on `UseRouting`, `UseEndpoints`
