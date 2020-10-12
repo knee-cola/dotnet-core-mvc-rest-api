@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json.Serialization;
 
 namespace dotnet_core_mvc_rest_api
 {
@@ -27,7 +28,11 @@ namespace dotnet_core_mvc_rest_api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers()
+                // a bit of .Net black magic
+                .AddNewtonsoftJson(s => {
+                    s.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                });
 
             // injecting Database Context which will be used to access SQL Server database
             services.AddDbContext<CommanderContext>(opt=>opt.UseSqlServer(Configuration.GetConnectionString("CommanderConnection")));
