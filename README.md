@@ -8,6 +8,8 @@ Boilerplate was created by running `dotnet new webapi`
 * `Microsoft.EntityFrameworkCore.Design` - design-time components for Entity Framework Core tools
 * `Microsoft.EntityFrameworkCore.SqlServer` - Entety Framework provider form MS SQL Server
 * `AutoMapper.Extensions.Microsoft.DependencyInjection` - maps commands objects to DTOs and DTOs to commands
+* `Microsoft.AspNetCore.JsonPatch` - support for PATCH HTTP request
+* `Microsoft.AspNetCore.Mvc.NewtonsoftJson` - output formatter for PATCH request
 
 # Notes
 
